@@ -4,15 +4,15 @@
 IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
 
 mkdir -p \
-    /var/lib/riak-vol/riak \
-    /var/lib/riak-vol/riak/bitcask \
-    /var/lib/riak-vol/riak/leveldb \
-    /var/lib/riak-vol/riak/ring \
-    /var/lib/riak-vol/log/riak
+    /var/lib/riak-data/riak \
+    /var/lib/riak-data/riak/bitcask \
+    /var/lib/riak-data/riak/leveldb \
+    /var/lib/riak-data/riak/ring \
+    /var/lib/riak-data/log/riak
 
 # Ensure correct ownership and permissions on volumes
-chown -R riak:riak /var/lib/riak-vol/riak /var/lib/riak-vol/log/riak
-chmod 755 /var/lib/riak-vol/riak /var/lib/riak-vol/log/riak
+chown -R riak:riak /var/lib/riak-data/riak /var/lib/riak-data/log/riak
+chmod 755 /var/lib/riak-data/riak /var/lib/riak-data/log/riak
 
 # Open file descriptor limit
 ulimit -n 65536

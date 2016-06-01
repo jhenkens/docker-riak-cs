@@ -4,7 +4,7 @@ FROM phusion/baseimage:0.9.18
 
 MAINTAINER Dimagi <devops@dimagi.com>
 
-VOLUME /var/lib/riak-vol
+VOLUME /var/lib/riak-data
 
 COPY install.sh /tmp/install.sh
 RUN /tmp/install.sh

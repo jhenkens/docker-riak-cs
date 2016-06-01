@@ -22,13 +22,13 @@ rm -rfv \
     /var/log/riak-cs \
     /var/log/stanchion
 
-# symlinks for data dirs (all data and logs reside in /var/lib/riak-vol)
-ln -s /var/lib/riak-vol/riak /var/lib/riak
-ln -s /var/lib/riak-vol/riak-cs /var/lib/riak-cs
-ln -s /var/lib/riak-vol/stanchion /var/lib/stanchion
-ln -s /var/lib/riak-vol/log/riak /var/log/riak
-ln -s /var/lib/riak-vol/log/riak-cs /var/log/riak-cs
-ln -s /var/lib/riak-vol/log/stanchion /var/log/stanchion
+# symlinks for data dirs (all data and logs reside in /var/lib/riak-data)
+ln -s /var/lib/riak-data/riak /var/lib/riak
+ln -s /var/lib/riak-data/riak-cs /var/lib/riak-cs
+ln -s /var/lib/riak-data/stanchion /var/lib/stanchion
+ln -s /var/lib/riak-data/log/riak /var/log/riak
+ln -s /var/lib/riak-data/log/riak-cs /var/log/riak-cs
+ln -s /var/lib/riak-data/log/stanchion /var/log/stanchion
 
 # clean up
 rm -v /tmp/*

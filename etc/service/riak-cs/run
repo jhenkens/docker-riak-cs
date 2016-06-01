@@ -3,11 +3,11 @@
 
 IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
 
-mkdir -p /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
+mkdir -p /var/lib/riak-data/riak-cs /var/lib/riak-data/log/riak-cs
 
 # Ensure correct ownership and permissions on volumes
-chown -R riakcs:riak /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
-chmod 755 /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
+chown -R riakcs:riak /var/lib/riak-data/riak-cs /var/lib/riak-data/log/riak-cs
+chmod 755 /var/lib/riak-data/riak-cs /var/lib/riak-data/log/riak-cs
 
 # Open file descriptor limit
 ulimit -n 65536

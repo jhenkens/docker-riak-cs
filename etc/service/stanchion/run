@@ -4,12 +4,12 @@
 IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
 
 mkdir -p \
-    /var/lib/riak-vol/stanchion \
-    /var/lib/riak-vol/log/stanchion \
+    /var/lib/riak-data/stanchion \
+    /var/lib/riak-data/log/stanchion \
 
 # Ensure correct ownership and permissions on volumes
-chown -R stanchion:riak /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
-chmod 755 /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
+chown -R stanchion:riak /var/lib/riak-data/stanchion /var/lib/riak-data/log/stanchion
+chmod 755 /var/lib/riak-data/stanchion /var/lib/riak-data/log/stanchion
 
 # Open file descriptor limit
 ulimit -n 4096
