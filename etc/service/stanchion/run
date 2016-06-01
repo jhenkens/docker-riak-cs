@@ -1,0 +1,24 @@
+#! /bin/sh
+# based on https://github.com/hectcastro/docker-riak-cs/blob/develop/bin/stanchion.sh
+
+IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+
+mkdir -p \
+    /var/lib/riak-vol/stanchion \
+    /var/lib/riak-vol/log/stanchion \
+
+# Ensure correct ownership and permissions on volumes
+chown -R stanchion:riak /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
+chmod -R 755 /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
+
+# Open file descriptor limit
+ulimit -n 4096
+
+# Ensure the Erlang node name is set correctly
+[ -f /etc/stanchion/stanchion.conf.bak ] && \
+    mv /etc/stanchion/stanchion.conf.bak /etc/stanchion/stanchion.conf
+sed -i.bak "s/127.0.0.1/${IP_ADDRESS}/" /etc/stanchion/stanchion.conf
+
+# Start Stanchion
+exec /sbin/setuser stanchion "$(ls -d /usr/lib/stanchion/erts*)/bin/run_erl" \
+    "/tmp/stanchion" "/var/log/stanchion" "exec /usr/sbin/stanchion console"

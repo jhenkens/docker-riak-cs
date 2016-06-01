@@ -1,0 +1,22 @@
+#! /bin/sh
+# based on https://github.com/hectcastro/docker-riak-cs/blob/develop/bin/riak-cs.sh
+
+IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+
+mkdir -p /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
+
+# Ensure correct ownership and permissions on volumes
+chown -R riakcs:riak /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
+chmod -R 755 /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
+
+# Open file descriptor limit
+ulimit -n 65536
+
+# Ensure the Erlang node name is set correctly
+[ -f /etc/riak-cs/riak-cs.conf.bak ] && \
+    mv /etc/riak-cs/riak-cs.conf.bak /etc/riak-cs/riak-cs.conf
+sed -i.bak "s/127.0.0.1/${IP_ADDRESS}/" /etc/riak-cs/riak-cs.conf
+
+# Start Riak CS
+exec /sbin/setuser riakcs "$(ls -d /usr/lib/riak-cs/erts*)/bin/run_erl" \
+    "/tmp/riak-cs" "/var/log/riak-cs" "exec /usr/sbin/riak-cs console"
