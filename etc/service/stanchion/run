@@ -9,7 +9,7 @@ mkdir -p \
 
 # Ensure correct ownership and permissions on volumes
 chown -R stanchion:riak /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
-chmod -R 755 /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
+chmod 755 /var/lib/riak-vol/stanchion /var/lib/riak-vol/log/stanchion
 
 # Open file descriptor limit
 ulimit -n 4096

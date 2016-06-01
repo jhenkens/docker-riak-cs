@@ -7,7 +7,7 @@ mkdir -p /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
 
 # Ensure correct ownership and permissions on volumes
 chown -R riakcs:riak /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
-chmod -R 755 /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
+chmod 755 /var/lib/riak-vol/riak-cs /var/lib/riak-vol/log/riak-cs
 
 # Open file descriptor limit
 ulimit -n 65536
