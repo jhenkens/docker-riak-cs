@@ -1,13 +1,23 @@
-if [ "$DOCKER_RIAKCS_RM" == '1' ]; then
-    # forcibly remove container, image and associated volumes
-    docker rm -fv $(docker ps -a | grep "dimagi/riak-cs" | awk '{print $1}')
-    docker rmi dimagi/riak-cs
+#! /bin/bash
+# Usage: ./build.sh [IMAGE_NAME]
+#
+# IMAGE_NAME defaults to "riak-cs" if it is not specified.
+
+IMAGE_NAME="$1"
+if [ -z "$IMAGE_NAME" ]; then
+    IMAGE_NAME="riak-cs"
 fi
 
-docker build -t dimagi/riak-cs:latest .
+if [ "$DOCKER_RIAKCS_RM" == '1' ]; then
+    # forcibly remove container, image and associated volumes
+    docker rm -fv $(docker ps -a | grep "$IMAGE_NAME" | awk '{print $1}')
+    docker rmi "$IMAGE_NAME"
+fi
+
+docker build -t "$IMAGE_NAME:latest" .
 RCODE="$?"
 
 if [ "$RCODE" == "0" -a "$DOCKER_RIAKCS_NO_START" == "" ]; then
-    echo "starting container..."
-    docker run -d -p 8080:8080 -p 8098:8098 dimagi/riak-cs
+    echo "Starting $IMAGE_NAME..."
+    docker run -d -p 8080:8080 -p 8098:8098 "$IMAGE_NAME"
 fi
