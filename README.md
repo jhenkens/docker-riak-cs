@@ -12,10 +12,16 @@ Default values are used:
     admin.key = admin-key
     admin.secret = admin-secret
 
+## Building a new image
+
+Run `build.sh` to build and run a new docker container. Automatic run can be
+disabled by setting `DOCKER_RIAKCS_NO_START=1`. A previously built container
+can be automatically removed prior to the build by setting `DOCKER_RIAKCS_RM=1`.
+
 Note: the services take some time to start and become ready to accept requests
 (about 30s on the machine where this was developed).
 
-## Useful docker commands for cleanup after failed builds:
+## Useful docker commands for cleanup after failed builds
 
 ```sh
 # Remove failed/partially built containers
