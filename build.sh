@@ -19,5 +19,5 @@ RCODE="$?"
 
 if [ "$RCODE" == "0" -a "$DOCKER_RIAKCS_NO_START" == "" ]; then
     echo "Starting $IMAGE_NAME..."
-    docker run -d -p 8080:8080 -p 8098:8098 "$IMAGE_NAME"
+    docker run -d -p 9980:9980 -p 8098:8098 "$IMAGE_NAME"
 fi
