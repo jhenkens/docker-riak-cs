@@ -12,10 +12,10 @@ chmod 755 /var/lib/riak-data/riak-cs /var/lib/riak-data/log/riak-cs
 # Open file descriptor limit
 ulimit -n 65536
 
-# Ensure the Erlang node name is set correctly
+# Set listenter IP
 [ -f /etc/riak-cs/riak-cs.conf.bak ] && \
     mv /etc/riak-cs/riak-cs.conf.bak /etc/riak-cs/riak-cs.conf
-sed -i.bak "s/127.0.0.1/${IP_ADDRESS}/" /etc/riak-cs/riak-cs.conf
+sed -i.bak "s/127.0.0.1:9980/${IP_ADDRESS}:9980/" /etc/riak-cs/riak-cs.conf
 
 # Start Riak CS
 exec /sbin/setuser riakcs "$(ls -d /usr/lib/riak-cs/erts*)/bin/run_erl" \

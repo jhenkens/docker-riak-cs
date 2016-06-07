@@ -17,10 +17,6 @@ chmod 755 /var/lib/riak-data/riak /var/lib/riak-data/log/riak
 # Open file descriptor limit
 ulimit -n 65536
 
-# Ensure the Erlang node name is set correctly
-[ -f /etc/riak/riak.conf.bak ] && mv /etc/riak/riak.conf.bak /etc/riak/riak.conf
-sed -i.bak "s/127.0.0.1/${IP_ADDRESS}/" /etc/riak/riak.conf
-
 nohup /bin/set-admin-keys.sh &
 
 # Start Riak

@@ -11,6 +11,6 @@ RUN /tmp/install.sh
 COPY etc/ /etc/
 COPY set-admin-keys.sh /bin/set-admin-keys.sh
 
-EXPOSE 8098 9980
+EXPOSE 9980
 
 CMD ["/sbin/my_init", "--quiet"]
