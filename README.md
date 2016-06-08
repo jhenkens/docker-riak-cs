@@ -30,6 +30,7 @@ docker rm $(docker ps -a | grep -E "\bsha256:" | awk '{ print $1 }')
 # Remove failed/partially built images
 docker rmi $(docker images | grep "^<none>" | awk '{ print $3 }')
 
-# Remove all dangling docker volumes
-docker volume rm $(docker volume ls -f dangling=true | awk '{ if(NR>1) print $2 }')
+# Remove dangling docker volumes (automating beyond this can be dangerous)
+docker volume ls -f dangling=true # list dangling containers
+docker volume rm <container1> <container2>
 ```
