@@ -17,7 +17,7 @@ fi
 docker build -t "$IMAGE_NAME:latest" .
 RCODE="$?"
 
-if [ "$RCODE" == "0" -a "$DOCKER_RIAKCS_NO_START" == "" ]; then
+if [ "$RCODE" == "0" -a "$DOCKER_RIAKCS_START" == "yes" ]; then
     echo "Starting $IMAGE_NAME..."
     docker run -d -p 9980:9980 -p 8098:8098 "$IMAGE_NAME"
 fi
