@@ -1,11 +1,9 @@
 #! /bin/sh
 # based on https://github.com/hectcastro/docker-riak-cs/blob/develop/bin/stanchion.sh
 
-IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-
 mkdir -p \
     /var/lib/riak-data/stanchion \
-    /var/lib/riak-data/log/stanchion \
+    /var/lib/riak-data/log/stanchion
 
 # Ensure correct ownership and permissions on volumes
 chown -R stanchion:riak /var/lib/riak-data/stanchion /var/lib/riak-data/log/stanchion

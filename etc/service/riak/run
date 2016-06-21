@@ -1,8 +1,6 @@
 #! /bin/sh
 # based on https://github.com/hectcastro/docker-riak-cs/blob/develop/bin/riak.sh
 
-IP_ADDRESS=$(ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-
 mkdir -p \
     /var/lib/riak-data/riak \
     /var/lib/riak-data/riak/bitcask \
@@ -16,8 +14,6 @@ chmod 755 /var/lib/riak-data/riak /var/lib/riak-data/log/riak
 
 # Open file descriptor limit
 ulimit -n 65536
-
-nohup /bin/set-admin-keys.sh &
 
 # Start Riak
 exec /sbin/setuser riak "$(ls -d /usr/lib/riak/erts*)/bin/run_erl" "/tmp/riak" \
