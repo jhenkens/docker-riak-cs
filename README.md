@@ -14,9 +14,14 @@ Default values are used:
 
 ## Building a new image
 
-Run `build.sh` to build and run a new docker container. Automatic run can be
-disabled by setting `DOCKER_RIAKCS_NO_START=1`. A previously built container
-can be automatically removed prior to the build by setting `DOCKER_RIAKCS_RM=1`.
+```sh
+./build.sh dimagi/riak-cs
+docker push dimagi/riak-cs
+```
+
+Run `build.sh` to build a new docker container. Automatic run can be enabled by
+setting `DOCKER_RIAKCS_START=yes`. A previously built container can be
+automatically removed prior to the build by setting `DOCKER_RIAKCS_RM=yes`.
 
 Note: the services take some time to start and become ready to accept requests
 (about 30s on the machine where this was developed).

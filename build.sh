@@ -8,7 +8,7 @@ if [ -z "$IMAGE_NAME" ]; then
     IMAGE_NAME="riak-cs"
 fi
 
-if [ "$DOCKER_RIAKCS_RM" == '1' ]; then
+if [ "$DOCKER_RIAKCS_RM" == 'yes' ]; then
     # forcibly remove container, image and associated volumes
     docker rm -fv $(docker ps -a | grep "$IMAGE_NAME" | awk '{print $1}')
     docker rmi "$IMAGE_NAME"
