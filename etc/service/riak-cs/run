@@ -17,6 +17,9 @@ ulimit -n 65536
     mv /etc/riak-cs/riak-cs.conf.bak /etc/riak-cs/riak-cs.conf
 sed -i.bak "s/127.0.0.1:9980/${IP_ADDRESS}:9980/" /etc/riak-cs/riak-cs.conf
 
+# HACK wait to avoid 403 forbidden errors
+riak-admin wait-for-service riak_kv
+
 # Start Riak CS
 exec /sbin/setuser riakcs "$(ls -d /usr/lib/riak-cs/erts*)/bin/run_erl" \
     "/tmp/riak-cs" "/var/log/riak-cs" "exec /usr/sbin/riak-cs console"
