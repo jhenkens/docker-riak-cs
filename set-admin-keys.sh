@@ -18,6 +18,14 @@ else
             exit 1
         fi
     done
+    if [ -z "$RIAK_USER" ]; then
+        echo "Failed to find username"
+        exit 1
+    fi
+    if [ -z "$RIAK_PASS" ]; then
+        echo "Failed to find password"
+        exit 1
+    fi
 
     # https://github.com/basho/riak_cs/issues/1074#issuecomment-111110461
     sudo -u riak $(ls -d /usr/lib/riak-cs/erts*)/bin/erl \
@@ -27,7 +35,7 @@ else
                 '"'"'riak-cs@127.0.0.1'"'"',
                 riak_cs_user,
                 create_user,
-                ["admin", "admin@admin.com", "admin-key",  "admin-secret"]
+                ["admin", "admin@admin.com", "'$RIAK_USER'",  "'$RIAK_PASS'"]
             )
         ]).' -s init stop > /var/log/riak/session-user-creation.log 2>&1
 
