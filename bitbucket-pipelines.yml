@@ -1,0 +1,28 @@
+# enable Docker for your repository
+options:
+  docker: true
+
+image: python:3.5.1
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - pip install awscli
+            # aws login
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            - export BUILD_ID=$BITBUCKET_COMMIT
+            - docker build -t ${AWS_REGISTRY_URL}:$BUILD_ID .
+            - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
+            - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:latest
+            - docker push ${AWS_REGISTRY_URL}:latest
+  tags:
+    '*':
+      - step:
+          script:
+            - pip install awscli
+            # aws login
+            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+            # docker
+            - docker build -t ${AWS_REGISTRY_URL}:$BITBUCKET_TAG .
+            - docker push ${AWS_REGISTRY_URL}:$BITBUCKET_TAG
